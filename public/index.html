@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!--
+
+        Author  : Abhishek Gupta        
+        Site    : http://abhishekgupta.us
+        Company : Getwed
+        
+        Based on Supersized 3.2.4 by Sam Dunn
+        License : MIT License / GPL License
+        
+        
+    -->
+
+<head>
+    <title>Abhishek & Sonali</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/supersized.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="theme/supersized.shutter.css" type="text/css" media="screen" />
+    <link href='http://fonts.googleapis.com/css?family=PT+Serif+Caption|Bigshot+One' rel='stylesheet' type='text/css' />
+    <link rel="icon" type="image/ico" href="img/favicon.ico" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js">
+</script>
+    <script type="text/javascript" src="js/jquery.easing.min.js">
+</script>
+    <script type="text/javascript" src="js/supersized.3.2.4.js">
+</script>
+    <script type="text/javascript" src="theme/supersized.shutter.js">
+</script>
+    <script type="text/javascript">
+//<![CDATA[
+
+
+            jQuery(function($){
+                
+                            
+                $.supersized({
+                
+                    // Functionality
+                    slideshow               :   1,          // Slideshow on/off
+                    autoplay                :   0,          // Slideshow starts playing automatically
+                    start_slide             :   1,          // Start slide (0 is random)
+                    stop_loop               :   1,          // Pauses slideshow on last slide
+                    random                  :   0,          // Randomize slide order (Ignores start slide)
+                    slide_interval          :   1000,       // Length between transitions
+                    transition              :   8,          // 0-None, 1-Fade, 2-Slide Top, 3-Slide Right, 4-Slide Bottom, 5-Slide Left, 6-Carousel Right, 7-Carousel Left, 8-Carousel Bottom
+                    transition_speed        :   500,        // Speed of transition
+                    new_window              :   1,          // Image links open in new window/tab
+                    pause_hover             :   0,          // Pause slideshow on hover
+                    keyboard_nav            :   1,          // Keyboard navigation on/off
+                    performance             :   1,          // 0-Normal, 1-Hybrid speed/quality, 2-Optimizes image quality, 3-Optimizes transition speed // (Only works for Firefox/IE, not Webkit)
+                    image_protect           :   1,          // Disables image dragging and right click with Javascript
+                                                               
+                    // Size & Position                         
+                    min_width               :   0,          // Min width allowed (in pixels)
+                    min_height              :   0,          // Min height allowed (in pixels)
+                    vertical_center         :   1,          // Vertically center background
+                    horizontal_center       :   1,          // Horizontally center background
+                    fit_always              :   0,          // Image will never exceed browser width or height (Ignores min. dimensions)
+                    fit_portrait            :   1,          // Portrait images will not exceed browser height
+                    fit_landscape           :   0,          // Landscape images will not exceed browser width
+                                                               
+                    // Components                           
+                    slide_links             :   'blank',    // Individual links for each slide (Options: false, 'number', 'name', 'blank')
+                    thumb_links             :   1,          // Individual thumb links for each slide
+                    thumbnail_navigation    :   0,          // Thumbnail navigation
+                    slides                  :   [           // Slideshow Images
+                                                        {image : 'http://farm7.static.flickr.com/6013/6202465412_c289912659_b.jpg'},
+                                                        {image : 'http://farm7.static.flickr.com/6151/6201983937_16c1b643a5_b.jpg'},  
+                                                        {image : 'http://farm7.static.flickr.com/6151/6201976017_ebe3b6561b_b.jpg'},
+                                                        {image : 'http://farm7.static.flickr.com/6025/6202489972_dd5ac07e65_b.jpg'},
+                                                        {image : 'http://farm7.static.flickr.com/6158/6202470674_5c8e21a301_b.jpg'},
+                                                        {image : 'http://farm7.static.flickr.com/6008/6202468848_78febdae9f_b.jpg'},
+                                                        {image : 'http://farm7.static.flickr.com/6001/6202462164_402159ccb9_b.jpg'},
+                                                        {image : 'http://farm7.static.flickr.com/6141/6201987355_4700df0f9f_b.jpg'}
+                                                ],
+                                                
+                    // Theme Options               
+                    progress_bar            :   1,          // Timer for each slide                         
+                    mouse_scrub             :   0
+                    
+                });
+
+
+
+            });
+            
+            
+            
+    window.onload = function()
+    {
+isLoaded=true;
+    /** Initialization code. 
+    * If you use your own event management code, change it as required.
+    */
+    if (window.addEventListener)
+        /** DOMMouseScroll is for mozilla. */
+        window.addEventListener('DOMMouseScroll', wheel, false);
+    /** IE/Opera. */
+    window.onmousewheel = document.onmousewheel = wheel;
+    }
+
+
+
+
+    /** This is high-level function.
+    * It must react to delta being more/less than zero.
+    */
+    function handle(delta) {
+        if (delta < 0)
+        api.nextSlide();
+        else
+        api.prevSlide();
+    }
+
+    /** Event handler for mouse wheel event.
+    */
+    function wheel(event){
+
+        var delta = 0;
+        if (!event) /* For IE. */
+                event = window.event;
+        if (event.wheelDelta) { /* IE/Opera. */
+                delta = event.wheelDelta/120;
+
+        } else if (event.detail) { /** Mozilla case. */
+                /** In Mozilla, sign of delta is different than in IE.
+                 * Also, delta is multiple of 3.
+                 */
+                delta = -event.detail/3;
+        }
+        /** If delta is nonzero, handle it.
+         * Basically, delta is now positive if wheel was scrolled up,
+         * and negative, if wheel was scrolled down.
+         */
+        if (delta)
+                handle(delta);
+        /** Prevent default actions caused by mouse wheel.
+         * That might be ugly, but we handle scrolls somehow
+         * anyway, so don't bother here..
+         */
+        if (event.preventDefault)
+                event.preventDefault();
+    event.returnValue = false;
+
+
+    }
+
+
+    //]]>
+    </script>
+    <style type="text/css">
+/*<![CDATA[*/
+
+        ul.page1{ margin:0 15px 15px 15px; display:none;}
+            ul.page1 li{ margin:0 0 10px 0; padding:10px 20px; display:inline; float:left; clear:both; color:#eaeaea; opacity:0.8; background-color: #000; font:44px "Bigshot One", Helvetica, Arial, sans-serif; }
+            ul.page1 li a{ color:#eaeaea;text-decoration: none; }
+            ul.page1 li a:visited{ color:#eaeaea; }
+            ul.page1 li a:active{ }
+            ul.page1 li a:hover{}
+                            
+            
+            ul.page2{ margin:0 15px 15px 15px; display:none;}
+            ul.page2 li{ margin:0 0 10px 0; padding:10px 20px; display:inline; float:left; clear:both; color:#eaeaea; opacity:0.8; background-color: #000; font:44px "Bigshot One", Helvetica, Arial, sans-serif; }
+            ul.page2 li a{ color:#eaeaea;text-decoration: none; }
+            ul.page2 li a:visited{ color:#eaeaea; }
+            ul.page2 li a:active{ }
+            ul.page2 li a:hover{}
+            
+            ul.page3{ margin:0 15px 15px 15px; display:none;}
+            ul.page3 li{ margin:0 0 10px 0; padding:10px 20px; display:inline; float:left; clear:both; color:#eaeaea; opacity:0.8; background-color: #000; font:44px "Bigshot One", Helvetica, Arial, sans-serif; }
+            ul.page3 li a{ color:#eaeaea;text-decoration: none; }
+            ul.page3 li a:visited{ color:#eaeaea; }
+            ul.page3 li a:active{ }
+            ul.page3 li a:hover{}
+            
+            ul.page4{ margin:0 15px 15px 15px; display:none;}
+            ul.page4 li{ margin:0 0 10px 0; padding:10px 20px; display:inline; float:left; clear:both; color:#eaeaea; opacity:0.8; background-color: #000; font:44px "Bigshot One", Helvetica, Arial, sans-serif; }
+            ul.page4 li a{ color:#eaeaea;text-decoration: none; }
+            ul.page4 li a:visited{ color:#eaeaea; }
+            ul.page4 li a:active{ }
+            ul.page4 li a:hover{}
+            
+            ul.page5{ margin:0 15px 15px 15px; display:none;}
+            ul.page5 li{ margin:0 0 10px 0; padding:10px 20px; display:inline; float:left; clear:both; color:#eaeaea; opacity:0.8; background-color: #000; font:44px "Bigshot One", Helvetica, Arial, sans-serif; }
+            ul.page5 li a{ color:#eaeaea;text-decoration: none; }
+            ul.page5 li a:visited{ color:#eaeaea; }
+            ul.page5 li a:active{ }
+            ul.page5 li a:hover{}
+            
+            ul.page6{ margin:0 15px 15px 15px; display:none;}
+            ul.page6 li{ margin:0 0 10px 0; padding:10px 20px; display:inline; float:left; clear:both; color:#eaeaea; opacity:0.8; background-color: #000; font:44px "Bigshot One", Helvetica, Arial, sans-serif; }
+            ul.page6 li a{ color:#eaeaea;text-decoration: none; }
+            ul.page6 li a:visited{ color:#eaeaea; }
+            ul.page6 li a:active{ }
+            ul.page6 li a:hover{}
+            
+            ul.page7{ margin:0 15px 15px 15px; display:none;}
+            ul.page7 li{ margin:0 0 10px 0; padding:10px 20px; display:inline; float:left; clear:both; color:#eaeaea; opacity:0.8; background-color: #000; font:44px "Bigshot One", Helvetica, Arial, sans-serif; }
+            ul.page7 li a{ color:#eaeaea;text-decoration: none; }
+            ul.page7 li a:visited{ color:#eaeaea; }
+            ul.page7 li a:active{ }
+            ul.page7 li a:hover{}
+            
+            ul.page8{ margin:0 15px 15px 15px; display:none;}
+            ul.page8 li{ margin:0 0 10px 0; padding:10px 20px; display:inline; float:left;  color:#eaeaea; opacity:0.9; background-color: #000; font:44px "Bigshot One", Helvetica, Arial, sans-serif; }
+            ul.page8 li a{ color:#eaeaea;text-decoration: none; }
+            ul.page8 li a:visited{ color:#eaeaea; }
+            ul.page8 li a:active{ }
+            ul.page8 li a:hover{}
+            
+            ul.content1{ margin:15px; width:465px; }
+            ul.content1 p{overflow:hidden;color:#eaeaea;padding-bottom:4px;}
+            ul.content1 li{font:18px 'PT Serif Caption', Helvetica, Arial, sans-serif;}
+            ul.content1 li a{ color:#eaeaea;text-decoration: none; }
+            ul.content1 li a:visited{ color:#eaeaea; }
+            ul.content1 li a:active{ }
+            ul.content1 li a:hover{}
+
+            ul.content2{ margin:15px; width:550px; }
+            ul.content2 p{overflow:hidden;color:#eaeaea;padding:10px 0; }
+            ul.content2 li{font:18px 'PT Serif Caption', Helvetica, Arial, sans-serif;}
+            ul.content2 li a{ color:#eaeaea;text-decoration: none; }
+            ul.content2 li a:visited{ color:#eaeaea; }
+            ul.content2 li a:active{ }
+            ul.content2 li a:hover{}
+            
+            ul.content3{ margin:15px; margin-right:0; padding-right:0; width:550px; position:absolute; top:0px; right:0px; }
+            ul.content3 p{overflow:hidden;color:#eaeaea;}
+            ul.content3 li{font:18px 'PT Serif Caption', Helvetica, Arial, sans-serif;background-color: #fff; padding:20px 0 20px 20px;}
+            ul.content3 li a{ color:#eaeaea;text-decoration: none; }
+            ul.content3 li a:visited{ color:#eaeaea; }
+            ul.content3 li a:active{ }
+            ul.content3 li a:hover{}
+
+
+
+
+    font-family: 'PT Serif Caption', serif;
+
+    font-family: 'Bigshot One', cursive;
+
+
+    /*]]>*/
+    </style>
+</head>
+
+<body>
+    <ul class="page1">
+        <!--<li><a href="http://abhishekgupta.us" target="_blank"><img src="img/getwed-logo.png"/></a></li> -->
+
+        <li><a href="index.html"><span id="yourname">Abhishek</span> &amp; <span id="spousename">Sonali</span></a></li>
+        
+    </ul>
+        <ul class="page1 content1">
+        <li>
+            <p>After being together for almost 10 years, We're really excited to let you know about our wedding. It's going to be one of the most important days in our lives, and we're looking forward to sharing the moment with all of you.</p>
+        </li>
+
+
+        <!--<li><a href="http://abhishekgupta.us" target="_blank"><img src="img/getwed-logo.png" /></a></li>-->
+    </ul>
+    
+
+    <ul class="page2">
+        <!--<li><a href="http://abhishekgupta.us" target="_blank"><img src="img/getwed-logo.png"/></a></li> -->
+
+        <li><a href="index.html">Jab We Met</a></li>
+    </ul>
+    
+<ul class="page2 content1">
+        <li>
+       
+            <p>On my first day to school in the 11th grade, I met this gorgeous girl in the same tempo as mine. She turned out to be the school head girl! I was attracted by her overall personality and her beauty. I took my chance and talked to her briefly on our way back home and that was the amazing start of our lifelong journey.</p>
+        </li>
+        <!--<li><a href="http://abhishekgupta.us" target="_blank"><img src="img/getwed-logo.png" /></a></li>-->               </ul>
+
+    <ul class="page3">
+        <!--<li><a href="http://abhishekgupta.us" target="_blank"><img src="img/getwed-logo.png"/></a></li> -->
+
+        <li><a href="index.html">The Boy Next Door</a></li>
+    </ul>
+
+    <ul class="page3 content1">
+        <li>
+            <p>10 years ago, a very shy boy came to the school, I found him really cute and to my surprise he lived right opposite my house. I would peep out of the window to catch a glimpse of him and wait for him to come out for his evening walks. I looked for reasons to talk to him and there began this beautiful story.
+
+</p>
+        </li>
+        <!--<li><a href="http://abhishekgupta.us" target="_blank"><img src="img/getwed-logo.png" /></a></li>-->
+    </ul>
+
+
+    <ul class="page4">
+        <!--<li><a href="http://abhishekgupta.us" target="_blank"><img src="img/getwed-logo.png"/></a></li> -->
+
+        <li><a href="index.html">The Wonder Years</a></li>
+    </ul>
+    
+        <ul class="page4 content1">
+        <li>
+            <p>I was once stuck in Sona's backyard when I had gone to see her and her mom  returned from work early. Sona locked me in the backyard and ran away to her college. God knows how I somehow climbed to the roof, and leaped and jumped over the walls to get out of the house without being caught.</p>
+        </li>
+        <!--<li><a href="http://abhishekgupta.us" target="_blank"><img src="img/getwed-logo.png" /></a></li>-->    </ul>
+    
+    
+    
+     <ul class="page5">
+        <!--<li><a href="http://abhishekgupta.us" target="_blank"><img src="img/getwed-logo.png"/></a></li> -->
+
+        <li><a href="index.html">Stand By Me</a></li>
+    </ul>
+    
+    
+    
+    <ul class="page5 content1">
+        <li>
+            <p>I would say it was love at first sight. I was completely taken away by his innocence, his humour, his positive attitude towards everything in life. He has always been there for me when I needed him the most and has stood by me like an anchor in times of happiness and misery. It’s been more than a decade and I still feel the spark every time I see him.</p>
+        </li>
+        <!--<li><a href="http://abhishekgupta.us" target="_blank"><img src="img/getwed-logo.png" /></a></li>-->
+    </ul>
+    
+    
+   <ul class="page6">
+        <!--<li><a href="http://abhishekgupta.us" target="_blank"><img src="img/getwed-logo.png"/></a></li> -->
+
+        <li><a href="index.html">The Princess Bride</a></li>
+    </ul>
+        <ul class="page6 content1">
+        <li>
+            <p>Like every girl I had a dream of becoming a beautiful bride and find my prince charming. Looks like I have found one. There is nothing better than spending your life with a person who knows you inside out. He is my best friend and I look forward to sharing all the wonderful moments ahead.</p>
+        </li>
+        <!--<li><a href="http://abhishekgupta.us" target="_blank"><img src="img/getwed-logo.png" /></a></li>-->
+    </ul>
+    
+    
+    
+    
+    <ul class="page7">
+        <!--<li><a href="http://abhishekgupta.us" target="_blank"><img src="img/getwed-logo.png"/></a></li> -->
+
+        <li><a href="index.html">As Good As It Gets</a></li>
+    </ul>
+
+    <ul class="page7 content1">
+        <li>
+            <p>We hope you can make it to the wedding and make our moment all the more special.</p>
+        </li>
+        <!--<li><a href="http://abhishekgupta.us" target="_blank"><img src="img/getwed-logo.png" /></a></li>-->
+    </ul>
+    
+
+
+
+    <ul class="page8 content2">
+        <li>
+            <p><img src="http://farm7.static.flickr.com/6162/6204543991_34cc522438_z.jpg" alt="" /></p>
+        </li>
+    </ul>    
+    
+    <ul class="page8 content3">
+        <li>
+<iframe src="fbcomments.html" height="500px" width="500px" frameborder="0" scrolling="auto"></iframe>
+</li>
+    </ul>
+    
+    
+    <!--End of styles-->
+    <!--Thumbnail Navigation
+    <div id="prevthumb"></div>
+    <div id="nextthumb"></div>-->
+    <!--Arrow Navigation
+    <a id="prevslide" class="load-item"></a>-->
+    <a id="nextslide" class="load-item"><img id="nextarrow" src="img/nextarrow.png" alt=""/></a>
+
+    <div id="controls-wrapper" class="load-item">
+        <div id="controls">
+            <ul id="slide-list"></ul>
+        </div>
+    </div>
+
+</body>
+</html>
