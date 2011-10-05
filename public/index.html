@@ -73,17 +73,31 @@
                     thumb_links             :   1,          // Individual thumb links for each slide
                     thumbnail_navigation    :   0,          // Thumbnail navigation
                     slides                  :   [           // Slideshow Images
-                                                        {image : 'http://farm7.static.flickr.com/6013/6202465412_c289912659_b.jpg'},
+                                                        {image : 'http://farm7.static.flickr.com/6106/6212226369_36bf8c05d3_b.jpg'},
+                                                        {image : 'http://farm7.static.flickr.com/6031/6212872390_d900e66fc2_b.jpg'},  
+                                                        {image : 'http://farm7.static.flickr.com/6227/6212379503_bae7f3cc51_b.jpg'},
+                                                        {image : 'http://farm7.static.flickr.com/6172/6212573397_d676f0a1ce_b.jpg'},
+                                                        {image : 'http://farm7.static.flickr.com/6039/6213044336_90fcdc6cfa_b.jpg'},
+                                                        {image : 'http://farm7.static.flickr.com/6152/6212512671_6ea9ee0a1e_b.jpg'},
+                                                        {image : 'http://farm7.static.flickr.com/6165/6212353285_1ca1f8be75_b.jpg'},
+                                                        {image : 'http://farm7.static.flickr.com/6040/6212892258_df9249e5b5_b.jpg'}
+                                                ],
+                                                
+                    // Theme Options 
+                    //other image links
+                    //http://farm7.static.flickr.com/6013/6202465412_c289912659_b.jpg
+                    //http://farm7.static.flickr.com/6046/6212169925_277f5f6844_b.jpg 
+                    //http://farm7.static.flickr.com/6091/6212177875_001da5545d_b.jpg
+                    /*'http://farm7.static.flickr.com/6106/6212226369_36bf8c05d3_b.jpg'},
                                                         {image : 'http://farm7.static.flickr.com/6151/6201983937_16c1b643a5_b.jpg'},  
                                                         {image : 'http://farm7.static.flickr.com/6151/6201976017_ebe3b6561b_b.jpg'},
                                                         {image : 'http://farm7.static.flickr.com/6025/6202489972_dd5ac07e65_b.jpg'},
                                                         {image : 'http://farm7.static.flickr.com/6158/6202470674_5c8e21a301_b.jpg'},
                                                         {image : 'http://farm7.static.flickr.com/6008/6202468848_78febdae9f_b.jpg'},
                                                         {image : 'http://farm7.static.flickr.com/6001/6202462164_402159ccb9_b.jpg'},
-                                                        {image : 'http://farm7.static.flickr.com/6141/6201987355_4700df0f9f_b.jpg'}
-                                                ],
-                                                
-                    // Theme Options               
+                                                        {image : 'http://farm7.static.flickr.com/6141/6201987355_4700df0f9f_b.jpg'
+                                                        
+                                                        */           
                     progress_bar            :   1,          // Timer for each slide                         
                     mouse_scrub             :   0
                     
@@ -210,36 +224,40 @@ isLoaded=true;
             ul.page7 li a:active{ }
             ul.page7 li a:hover{}
             
-            ul.page8{ margin:0 15px 15px 15px; display:none;}
-            ul.page8 li{ margin:0 0 10px 0; padding:10px 20px; display:inline; float:left;  color:#eaeaea; opacity:0.9; background-color: #000; font:44px "Bigshot One", Helvetica, Arial, sans-serif; }
+
+            
+            ul.page8{ display:none;}
+            ul.page8 li{ margin:0; margin-left:15px;padding:0; display:inline; float:left;  color:#eaeaea; opacity:0.9; background-color: #000; font:44px "Bigshot One", Helvetica, Arial, sans-serif; }
             ul.page8 li a{ color:#eaeaea;text-decoration: none; }
             ul.page8 li a:visited{ color:#eaeaea; }
             ul.page8 li a:active{ }
             ul.page8 li a:hover{}
             
             ul.content1{ margin:15px; width:465px; }
-            ul.content1 p{overflow:hidden;color:#eaeaea;padding-bottom:4px;}
+            ul.content1 p{overflow:hidden;color:#eaeaea;}
             ul.content1 li{font:18px 'PT Serif Caption', Helvetica, Arial, sans-serif;}
             ul.content1 li a{ color:#eaeaea;text-decoration: none; }
             ul.content1 li a:visited{ color:#eaeaea; }
             ul.content1 li a:active{ }
             ul.content1 li a:hover{}
 
-            ul.content2{ margin:15px; width:550px; }
-            ul.content2 p{overflow:hidden;color:#eaeaea;padding:10px 0; }
+            ul.content2{  width:550px; float:left; }
+            ul.content2 p{overflow:hidden;color:#eaeaea; padding:15px;}
             ul.content2 li{font:18px 'PT Serif Caption', Helvetica, Arial, sans-serif;}
             ul.content2 li a{ color:#eaeaea;text-decoration: none; }
             ul.content2 li a:visited{ color:#eaeaea; }
             ul.content2 li a:active{ }
             ul.content2 li a:hover{}
             
-            ul.content3{ margin:15px; margin-right:0; padding-right:0; width:550px; position:absolute; top:0px; right:0px; }
+            ul.content3{ margin:15px; margin-left:595px; width:420px;}
             ul.content3 p{overflow:hidden;color:#eaeaea;}
-            ul.content3 li{font:18px 'PT Serif Caption', Helvetica, Arial, sans-serif;background-color: #fff; padding:20px 0 20px 20px;}
+            ul.content3 li{font:18px 'PT Serif Caption', Helvetica, Arial, sans-serif;background-color: #fff;padding:15px;}
             ul.content3 li a{ color:#eaeaea;text-decoration: none; }
             ul.content3 li a:visited{ color:#eaeaea; }
             ul.content3 li a:active{ }
             ul.content3 li a:hover{}
+            
+
 
 
 
@@ -368,10 +386,10 @@ isLoaded=true;
     
     <ul class="page8 content3">
         <li>
-<iframe src="fbcomments.html" height="500px" width="500px" frameborder="0" scrolling="auto"></iframe>
+<iframe src="fbcomments.html" height="586px" width="420px" frameborder="0" scrolling="auto" style="margin:0;padding:0;"></iframe>
 </li>
     </ul>
-    
+ 
     
     <!--End of styles-->
     <!--Thumbnail Navigation
